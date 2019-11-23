@@ -1,7 +1,7 @@
 <div class="container">
     <div class="jumbotron">
-        <img src="" width="auto" height="auto">
-        <h1>Eat Burgers!!!</h1>
+        {{!-- <img src="assets/img/burger.jpg" width="auto" height="auto"> --}}
+        <h1>Eat Burgers!!! <img src="assets/img/burger.jpg" width="auto" height="auto"> </h1>
     </div>
 
 
@@ -18,10 +18,13 @@
                             <p class="lead">{{this.burger_name}}</p>
                             <span class="input-group-btn">
 
-                                <form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+
+                                <button class="devour btn btn-default btn-lg" data-id='{{this.id}}'>Devour it!</button>
+
+                                {{!-- <form action="burgers/update/{{this.id}}?_method=PUT" method="PUT">
                                     <input type="hidden" name="devoured" value="true">
                                     <button class="btn btn-default btn-lg" type="submit">Devour it!</button>
-                                </form>
+                                </form> --}}
                             </span>
                         </div>
                     </li>
@@ -34,7 +37,7 @@
 
 
         <div class="row">
-            <div class="col-md-4 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-2">
                 <h1>Devoured Burgers</h1>
                 <div class="panel panel-default">
                     <ul class="list-group">
@@ -51,7 +54,7 @@
         </div>
 
         <div class="col-md-10 col-md-offset-1">
-            <p class="lead">add burger & click submit</p>
+            <p class="lead">Add burger and click submit</p>
 
             <form class="create-update-form" action="burgers/create" method="POST">
                 <div class="form-group">
@@ -63,3 +66,17 @@
 
     </div>
 </div>
+
+<script>
+    $(".devour").on("click", function (event) {
+        event.preventDefault()
+
+        let burgerID = $(this).attr("data-id")
+        console.log(burgerID)
+
+        $.ajax({ url: `/burgers/update/${burgerID}`, method: "PUT" }).then(res => {
+            console.log(res)
+            window.location.replace("/burgers")
+        })
+    })
+</script>

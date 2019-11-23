@@ -1,5 +1,5 @@
 var express = require("express");
-var burgers = require("../models/burger.js");
+var burgers = require("../models/burger");
 
 var router = express.Router();
 
@@ -12,7 +12,7 @@ router.get("/burgers", function(req, res) {
     var hbsObject = {
       burgers: data
     };
-    console.log(hbsObject);
+    //console.log(hbsObject);
     res.render("index", hbsObject);
   });
 });
@@ -29,13 +29,14 @@ router.put("/burgers/update/:id", function(req, res) {
 
   burgers.updateOne(
     {
-      devoured: req.body.devoured
+      devoured: true
     },
     condition,
     function(data) {
-      res.redirect("/burgers");
+      res.json(data);
     }
   );
+  //res.redirect("/burgers");
 });
 
 module.exports = router;
